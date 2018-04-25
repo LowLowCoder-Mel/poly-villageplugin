@@ -45,18 +45,16 @@ asyncClient.on('message', function (topic, message){
             break;
             case "postfacelogger":
                 let face_time = json_data.data.time;
-                console.log(face_time)
                 // 提交人脸开门记录
                 faceModel.getFaceLoggerByTime(face_time.trim(' '))
                     .then((results) => {
                         results.forEach(element => {
-                            delete element['id']
+                            delete element['id'];
                             element.village_id = config.village_config.village;
                         });
                         return results;
                     })
                     .then((results) => {
-                        console.log(results)
                         let records = {"village_id": config.village_config.village, "records": results, "type": json_data.data.type}
                         return httprequest.genPostFaceLogger(records);
                     })
@@ -71,7 +69,7 @@ asyncClient.on('message', function (topic, message){
                 accessModel.getFaceLoggerByTime(access_time.trim(' '))
                     .then((results) => {
                         results.forEach(element => {
-                            delete element['id']
+                            delete element['id'];
                             element.village_id = config.village_config.village;
                         });
                         return results;
@@ -81,7 +79,6 @@ asyncClient.on('message', function (topic, message){
                         return httprequest.genPostAccessLogger(records);
                     })
                     .then((data) => {
-                        console.log(data)
                         console.log("开门记录提交完成");
                     })
                     .catch(err => console.log(err));
@@ -91,15 +88,13 @@ asyncClient.on('message', function (topic, message){
                 usersModel.getFaceUsers()
                     .then((results) => {
                         results.forEach(element => {
-                            delete element['id']
+                            delete element['id'];
                             element.village_id = config.village_config.village;
                         });
-                        console.log(results);
                         return results;
                     })
                     .then((results) => {
                         let records = {"village_id": config.village_config.village, "records": results, "type": json_data.data.type}
-                        console.log(records)
                         return httprequest.genPostUsers(records);
                     })
                     .then((data) => {
