@@ -3,6 +3,7 @@
 const request = require('request');
 const crypto = require('crypto');
 const util = require('util');
+const utf8 = require('utf8');
 
 const PRIVATE_KEY = "GjcfbhCIJ2owQP1Kxn64DqSk5X4YRZ7u";
 const API_URL = require('../config/index').cloud_server.base_url
@@ -17,14 +18,15 @@ const API_URL_ACCESS_LOGGER = API_URL + "sync/access_logger";
  */
 exports.genPostFaceLogger = (data) => {
   return new Promise((resolve, reject) => {
-    let sign_data = getSign(data)
+    let utf8_data = utf8.encode(data);
+    let sign_data = getSign(data);
     let options = {
         url: API_URL_FACE_LOGGER,
         method: 'POST',
         json: true,
         body: {
           sign: sign_data,
-          data: JSON.stringify(data)
+          data: utf8_data
         }
     };
     request(options, (err, res, body) => {
@@ -43,6 +45,7 @@ exports.genPostFaceLogger = (data) => {
  */
 exports.genPostAccessLogger = (data) => {
   return new Promise((resolve, reject) => {
+    let utf8_data = utf8.encode(data);
     let sign_data = getSign(data);
     let options = {
         url: API_URL_ACCESS_LOGGER,
@@ -50,7 +53,7 @@ exports.genPostAccessLogger = (data) => {
         json: true,
         body: {
           sign: sign_data,
-          data: JSON.stringify(data)
+          data: utf8_data
         }
     };
     request(options, (err, res, body) => {
@@ -69,6 +72,7 @@ exports.genPostAccessLogger = (data) => {
  */
 exports.genPostUsers = (data) => {
   return new Promise((resolve, reject) => {
+    let utf8_data = utf8.encode(data);
     let sign_data = getSign(data);
     let options = {
         url: API_URL_FACE_USERS,
@@ -76,7 +80,7 @@ exports.genPostUsers = (data) => {
         json: true,
         body: {
           sign: sign_data,
-          data: JSON.stringify(data)
+          data: utf8_data
         }
     };
     request(options, (err, res, body) => {
@@ -94,7 +98,8 @@ exports.genPostUsers = (data) => {
  * @param json_data 
  */
 const getSign = (json_data) => {
-  let vercy = JSON.stringify(json_data) + PRIVATE_KEY;
+  let utf8_data = utf8.encode(json_data);
+  let vercy = utf8_data + PRIVATE_KEY;
   let md5sum = crypto.createHash('md5');
   md5sum.update(vercy);
   let sign_data = md5sum.digest('hex');
