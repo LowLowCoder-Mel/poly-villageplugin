@@ -12,7 +12,7 @@ const util = require('util');
  *    "data": {"type": "1", "building": "6", "unit": "01", "index": "01"}
  * }
  */
-exports.unlockDoor = function(data) {
+exports.unlockDoor = (data) => {
     let id = util.format('%s%s99%s', data.building, data.unit, data.index);
     console.log(id);
     var options = {
@@ -21,7 +21,7 @@ exports.unlockDoor = function(data) {
         json: true,
         timeout: 10000
     };
-    request(options, function (err, res, body) {
+    request(options, (err, res, body) => {
       if (!err && res.statusCode == 200){
         console.log("Unlock OK");
       }  

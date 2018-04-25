@@ -20,6 +20,14 @@ exports.getFaceLoggerById = function (startid, endid){
 
 /*
  * 通过时间间隔获取人脸记录
+ * {
+ *    "domain": "villageplugin",
+ *    "service": "postfacelogger",
+ *    "data": {
+ *       "date": "2018-4-13",
+ *       "type": 1
+ *    }
+ * }
  */
 exports.getFaceLoggerByTime = function (date){
     // let date = '2018-4-13'
