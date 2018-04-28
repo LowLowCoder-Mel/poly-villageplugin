@@ -5,7 +5,7 @@
  */
 
 exports.village_config = {
-    village: 5
+    village: 6
 }
 
 exports.app_config = {

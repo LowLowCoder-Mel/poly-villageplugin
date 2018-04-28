@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const util = require('util');
 
 const PRIVATE_KEY = "GjcfbhCIJ2owQP1Kxn64DqSk5X4YRZ7u";
-const API_URL = require('../config/index').cloud_server.base_url
+const API_URL = require('../config/index').cloud_server.base_url;
 const API_URL_FACE_LOGGER = API_URL + "sync/face_logger";
 const API_URL_FACE_USERS = API_URL + "sync/face_user";
 const API_URL_ACCESS_LOGGER = API_URL + "sync/access_logger";

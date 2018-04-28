@@ -8,7 +8,7 @@ const faceModel = require("../models/record_face");
 const accessModel = require("../models/record_access");
 const usersModel = require("../models/face_user");
 
-var asyncClient = AsyncClient.connect(config.mqtt_config.url, {
+let asyncClient = AsyncClient.connect(config.mqtt_config.url, {
     port: config.mqtt_config.port,
     username: config.mqtt_config.username,
     password: config.mqtt_config.password,
@@ -30,14 +30,19 @@ asyncClient.on('connect', function () {
 asyncClient.on('message', function (topic, message){
     console.log("Topic: " + topic, "  Message: " + message.toString());
 
-    var village_id = topic.split('/')[3];
-    var json_data = JSON.parse(message.toString());
+    let village_id = topic.split('/')[3];
+    let json_data = JSON.parse(message.toString());
     if (json_data.domain == 'villageplugin'){
         switch(json_data.service){
             case "unlock":
+                // 开锁  
                 try {
                     if (json_data.data.type == '1'){
-                        dnakelock.unlockDoor(json_data.data);
+                        dnakelock.unlockDoor(json_data.data)
+                            .then((result) => {
+                                let res = '/v1/polyhome-village/" + config.village_config.village + /user/' + json_data.data.user_id + '/lock/';
+                                asyncClient.publish(res, result)
+                            });
                     }
                 } catch (error) {
                     console.log(error)
