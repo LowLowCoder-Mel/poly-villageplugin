@@ -3,6 +3,7 @@
 const request = require('request');
 const crypto = require('crypto');
 const util = require('util');
+const config = require('../config/index');
 
 /**
  * 指定单元门/围墙机开锁
@@ -17,7 +18,7 @@ exports.unlockDoor = (data) => {
       let id = util.format('%s%s99%s', data.building, data.unit, data.index);
       console.log(id);
       let options = {
-          url: "http://127.0.0.1:8088/http2sip.cgi?id=" + id + "&event_url=/talk/unlock",
+          url: `http://${config.dnake_server.ip}:8088/http2sip.cgi?id=" + id + "&event_url=/talk/unlock`,
           method: 'GET',
           json: true,
           timeout: 8000
@@ -27,7 +28,7 @@ exports.unlockDoor = (data) => {
           console.log("Unlock OK");
           resolve({'code': 0, 'msg': 'ok'})
         } else {
-          reject({'code': 1, 'msg': 'error'})
+          // reject({'code': 1, 'msg': 'error'})
         }
       });
     });

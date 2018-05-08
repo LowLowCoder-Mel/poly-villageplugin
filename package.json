@@ -3,17 +3,18 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start_pro": "export NODE_ENV=pro && node app.js",
+    "start_dev": "export NODE_ENV=dev && node app.js"
   },
-  "author": "",
+  "author": "Zhangxuesong",
   "license": "ISC",
   "dependencies": {
     "async-mqtt": "^1.0.1",
     "express": "^4.16.3",
     "mqtt": "^2.17.0",
     "mysql": "^2.15.0",
-    "request": "^2.85.0",
-    "utf8": "^3.0.0"
+    "request": "^2.85.0"
   },
   "devDependencies": {},
   "description": ""

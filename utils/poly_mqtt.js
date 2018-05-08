@@ -12,7 +12,7 @@ let asyncClient = AsyncClient.connect(config.mqtt_config.url, {
     port: config.mqtt_config.port,
     username: config.mqtt_config.username,
     password: config.mqtt_config.password,
-    clientId: "polyhome_village_plugin_" + config.village_config.village
+    clientId: "polyhome_village_plugin_" + config.village_config.village + '111'
 });
 
 asyncClient.on('connect', function () {
@@ -40,9 +40,14 @@ asyncClient.on('message', function (topic, message){
                     if (json_data.data.type == '1'){
                         dnakelock.unlockDoor(json_data.data)
                             .then((result) => {
-                                let res = '/v1/polyhome-village/" + config.village_config.village + /user/' + json_data.data.user_id + '/lock/';
-                                asyncClient.publish(res, result)
-                            });
+                                // console.log(result);
+                                // let res_topic = '/v1/polyhome-village/" + config.village_config.village + /user/' + json_data.data.user_id + '/lock/';
+                                // console.log(res_topic)
+                                // return asyncClient.publish(res_topic, JSON.stringify(result));
+                            })
+                            // .then(() => {
+                            //     console.log('Publish Lock Msg')
+                            // });
                     }
                 } catch (error) {
                     console.log(error)
