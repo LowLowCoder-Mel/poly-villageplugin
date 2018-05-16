@@ -1,3 +1,3 @@
 @echo off
 
-npm start_pro
+npm run start_pro

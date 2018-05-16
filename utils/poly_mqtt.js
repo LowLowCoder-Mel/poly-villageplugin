@@ -12,7 +12,12 @@ let asyncClient = AsyncClient.connect(config.mqtt_config.url, {
     port: config.mqtt_config.port,
     username: config.mqtt_config.username,
     password: config.mqtt_config.password,
-    clientId: "polyhome_village_plugin_" + config.village_config.village + '111'
+    clientId: "polyhome_village_plugin_" + config.village_config.village,
+    will: {
+        topic: `/v1/polyhome-plugin/village/${config.village_config.village}/type/offline/`,
+        payload: "\{\"status\": \"offline\"\}",
+        qos: 1
+    }   
 });
 
 asyncClient.on('connect', function () {

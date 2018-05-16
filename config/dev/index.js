@@ -14,7 +14,7 @@ exports.app_config = {
 
 exports.mqtt_config = {
     "url": 'mqtt://60.205.151.71',
-    "port": 1883,
+    "port": 3883,
     "clinet_id": "",
     "username": "polyhome",
     "password": "123"
