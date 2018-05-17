@@ -18,7 +18,7 @@ exports.unlockDoor = (data) => {
       let id = util.format('%s%s99%s', data.building, data.unit, data.index);
       console.log(id);
       let options = {
-          url: `http://${config.dnake_server.ip}:8088/http2sip.cgi?id=" + id + "&event_url=/talk/unlock`,
+          url: `http://${config.dnake_server.ip}:8088/http2sip.cgi?id=${id}&event_url=/talk/unlock`,
           method: 'GET',
           json: true,
           timeout: 8000
