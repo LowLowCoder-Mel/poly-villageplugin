@@ -1,9 +1,8 @@
-'use strict';
+'use strict'
 
-const request = require('request');
-const crypto = require('crypto');
-const util = require('util');
-const config = require('../config/index');
+const request = require('request')
+const util = require('util')
+const config = require('../config/index')
 
 /**
  * 指定单元门/围墙机开锁
@@ -14,23 +13,25 @@ const config = require('../config/index');
  * }
  */
 exports.unlockDoor = (data) => {
-    return new Promise((resolve, reject) => {
-      let id = util.format('%s%s99%s', data.building, data.unit, data.index);
-      console.log(id);
-      let options = {
-          url: `http://${config.dnake_server.ip}:8088/http2sip.cgi?id=${id}&event_url=/talk/unlock`,
-          method: 'GET',
-          json: true,
-          timeout: 8000
-      };
-      request(options, (err, res, body) => {
-        if (!err && res.statusCode == 200){
-          console.log("Unlock OK");
-          resolve({'code': 0, 'msg': 'ok'})
-        } else {
-          // reject({'code': 1, 'msg': 'error'})
-        }
-      });
-    });
-  };
-  
+  return new Promise((resolve, reject) => {
+    let id = util.format('%s%s99%s', data.building, data.unit, data.index)
+    console.log(id)
+    let options = {
+      url: `http://${config.dnake_server.ip}:8088/http2sip.cgi?id=${id}&event_url=/talk/unlock`,
+      method: 'GET',
+      json: true,
+      timeout: 8000
+    }
+    request(options, (err, res, body) => {
+      if (!err && res.statusCode === 200) {
+        console.log('Unlock OK')
+        resolve({
+          'code': 0,
+          'msg': 'ok'
+        })
+      } else {
+        reject(err)
+      }
+    })
+  })
+}

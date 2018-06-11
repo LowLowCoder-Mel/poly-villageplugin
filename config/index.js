@@ -1,21 +1,15 @@
 'use strict'
 
-const dev_config = require('./dev/index');
-const pro_config = require('./pro/index');
+const path = require('path')
 
-let env = process.env.NODE_ENV || 'pro';
+let env = process.env.NODE_ENV || 'pro'
 
-let config = {};
+let config = {}
 
-if (env == 'pro'){
-    config = pro_config;
-}else {
-    config = dev_config;
+if (env === 'pro') {
+  config = require(path.join(__dirname, '/pro/', 'index'))
+} else {
+  config = require(path.join(__dirname, '/dev/', 'index'))
 }
 
-module.exports = config;
-
-
-
-
-
+module.exports = config
